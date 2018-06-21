@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+
+</head>
+
+<body>
+    <textarea rows="15" cols="60" id="textInput"></textarea>
+    <br>
+    <button id="countButton">Count Frequencies</button>
+    <div id="lettersDiv"></div>
+    <div id="wordsDiv"></div>
+    <script>
+        // This gets rid of all the characters except letters, spaces, and apostrophes.
+        // We will learn more about how to use the replace function in an upcoming lesson.
+
+        document.getElementById("countButton").onclick = function () {
+            // your code will go here ...
+
+            var typedText = document.getElementById("textInput").value;
+            typedText = typedText.toLowerCase();
+            typedText = typedText.replace(/[^a-z'\s]+/g, "");
+
+            //letter frequency counter
+            letterCounts = {};
+            for (let i = 0; i < typedText.length; i++) {
+                currentLetter = typedText[i];
+                // do something for each letter.
+                if (letterCounts[currentLetter] === undefined) {
+                    letterCounts[currentLetter] = 1;
+                } else {
+                    letterCounts[currentLetter]++;
+                }
+
+            }
+
+            for (letter in letterCounts) {
+                console.log(letter);
+                let span = document.createElement("span");
+                let textContent = document.createTextNode('"' + letter + "\": " + letterCounts[letter] +
+                    ", ");
+                span.appendChild(textContent);
+                document.getElementById("lettersDiv").appendChild(span);
+            }
+
+
+            //word frequency counter
+
+            words = typedText.split(/\s/);
+
+            wordCounts = {};
+
+            for (var i = 0; i < words.length; i++) {
+                currentWord = words[i];
+
+                if (wordCounts[currentWord] === undefined) {
+                    wordCounts[currentWord] = 1;
+                } else {
+                    wordCounts[currentWord]++;
+                }
+            }
+            for (word in wordCounts) {
+                console.log(wordCounts[word]);
+                console.log(word);
+                let span = document.createElement("span");
+                let textContent = document.createTextNode('"' + word + "\": " + wordCounts[word] +
+                    ", ");
+                span.appendChild(textContent);
+                document.getElementById("wordsDiv").appendChild(span);
+            }
+
+        }
+    </script>
+</body>
+
+</html>
